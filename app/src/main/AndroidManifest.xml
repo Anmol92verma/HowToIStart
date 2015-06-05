@@ -21,7 +21,11 @@
         </activity>
 
         <activity
-            android:name=".PostsActivity"
+            android:name=".PostsListActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".PostContentFragment"
             android:screenOrientation="portrait"></activity>
     </application>
 

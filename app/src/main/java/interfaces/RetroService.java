@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.Map;
 
+import models.PostContentModel;
 import models.PostsMainModel;
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -21,5 +22,6 @@ public interface RetroService {
     @GET("/")
     void getPosts(@QueryMap Map<String, String> query, Callback<PostsMainModel> cb);
 
-
+    @GET("/")
+    void getPostDetail(@QueryMap Map<String, String> query, Callback<PostContentModel> cb);
 }

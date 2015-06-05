@@ -7,4 +7,5 @@
     <dimen name="drawer_width">260dp</dimen>
     <dimen name="shape_size">56dp</dimen>
     <dimen name="dimen_5dp">5dp</dimen>
+    <dimen name="textsize_content_post">18sp</dimen>
 </resources>

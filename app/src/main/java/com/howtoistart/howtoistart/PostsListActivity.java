@@ -1,22 +1,13 @@
 package com.howtoistart.howtoistart;
 
-import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,7 +32,7 @@ import retrofit.client.Response;
  * Created by anmol on 27/5/15.
  */
 
-public class PostsActivity extends ActionBarActivity implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnMoreListener {
+public class PostsListActivity extends ActionBarActivity implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnMoreListener {
     private SuperRecyclerView mRecyclerView;
     private android.support.v7.widget.RecyclerView.Adapter mAdapter;
     private android.support.v7.widget.RecyclerView.LayoutManager mLayoutManager;
@@ -156,19 +147,20 @@ public class PostsActivity extends ActionBarActivity implements ListView.OnItemC
             @Override
             public void success(PostsMainModel postsMainModel, Response response) {
                 mRecyclerView.getSwipeToRefresh().setRefreshing(false);
+                mRecyclerView.hideMoreProgress();
                 post_data = new PostsMainModel();
                 post_data = postsMainModel;
                 Log.d("sfdsf", new Gson().toJson(post_data));
                 if (post_data.getCurrPage() < post_data.getPages()) {
                     page = page + 1;
-                    mRecyclerView.setupMoreListener(PostsActivity.this, (post_data.getCountTotal() - post_data.getCount()));
+                    mRecyclerView.setupMoreListener(PostsListActivity.this, post_data.getCountTotal());
                 } else {
 
                 }
                 my_posts.clear();
                 my_posts.addAll(post_data.getPosts());
                 // specify an adapter (see also next example)
-                mAdapter = new MyAdapter(PostsActivity.this, my_posts);
+                mAdapter = new MyAdapter(PostsListActivity.this, my_posts);
                 mRecyclerView.setAdapter(mAdapter);
             }
 
@@ -192,12 +184,12 @@ public class PostsActivity extends ActionBarActivity implements ListView.OnItemC
             @Override
             public void success(PostsMainModel postsMainModel, Response response) {
                 mRecyclerView.getSwipeToRefresh().setRefreshing(false);
+                mRecyclerView.hideMoreProgress();
                 post_data = new PostsMainModel();
                 post_data = postsMainModel;
                 Log.d("sfdsf", new Gson().toJson(post_data));
                 if (post_data.getCurrPage() < post_data.getPages()) {
                     page = page + 1;
-                    mRecyclerView.setupMoreListener(PostsActivity.this, (post_data.getCountTotal() - post_data.getCount()));
                 } else {
                     mRecyclerView.removeMoreListener();
                     mRecyclerView.hideMoreProgress();

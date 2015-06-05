@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-               startActivity(new Intent(MainActivity.this,PostsActivity.class));
+               startActivity(new Intent(MainActivity.this,PostsListActivity.class));
             }
         },500);
     }
